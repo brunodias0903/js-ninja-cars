@@ -1,62 +1,87 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+(function (doc) {
+  function DOM(element) {
+    if (!(this instanceof DOM)) {
+      return new DOM(element)
+    }
+    
+    this.element = doc.querySelectorAll(element)
+  }
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Challenge 29</title>
-</head>
+  DOM.prototype.on = function on(event, callbackFunction) {
+    Array.prototype.forEach.call(this.element, (element) => {
+      element.addEventListener(event, callbackFunction, false)
+    })
+  }
 
-<body>
-  <header>
-    <p data-js="company-name"></p>
-    <strong data-js="company-phone"></strong>
-  </header>
+  DOM.prototype.off = function off(event, callbackFunction) {
+    Array.prototype.forEach.call(this.element, (element) => {
+      element.removeEventListener(event, callbackFunction)
+    })
+  }
 
-  <main>
-    <form>
-      <div class="car">
-        <div class="input-area">
-          <label for="img">Imagem do Carro</label>
-          <input data-js="inputs" type="img">
-        </div>
-        <div class="input-area">
-          <label for="marca">Marca / Modelo</label>
-          <input data-js="inputs" type="marca">
-        </div>
-        <div class="input-area">
-          <label for="year">Ano</label>
-          <input data-js="inputs" type="year">
-        </div>
-        <div class="input-area">
-          <label for="placa">Placa</label>
-          <input data-js="inputs" type="placa">
-        </div>
-        <div class="input-area">
-          <label for="color">Cor</label>
-          <input data-js="inputs" type="color">
-        </div>
-      </div>
-      <button data-js="button">Cadastrar carro</button>
-    </form>
-  </main>
+  DOM.prototype.get = function get() {
+    return this.element
+  }
 
-  <table class="cars-wrapper">
-    <tbody data-js="table">
-      <tr>
-        <th class="car-image">Carro</th>
-        <th>Modelo</th>
-        <th>Ano</th>
-        <th>Placa</th>
-        <th>Cor</th>
-      </tr>
-    </tbody>
+  DOM.prototype.forEach = function forEach() {
+    return Array.prototype.forEach.apply(this.element, arguments);
+  }
 
-  </table>
+  DOM.prototype.map = function map() {
+    return Array.prototype.map.apply(this.element, arguments);
+  }
 
-  <script src="js/dom.js"></script>
-  <script src="js/index.js"></script>
-</body>
+  DOM.prototype.filter = function filter() {
+    return Array.prototype.filter.apply(this.element, arguments);
+  }
 
-</html>
+  DOM.prototype.reduce = function reduce() {
+    return Array.prototype.reduce.apply(this.element, arguments);
+  }
+
+  DOM.prototype.reduceRight = function reduceRight() {
+    return Array.prototype.reduceRight.apply(this.element, arguments);
+  }
+
+  DOM.prototype.every = function every() {
+    return Array.prototype.every.apply(this.element, arguments);
+  }
+
+  DOM.prototype.some = function some() {
+    return Array.prototype.some.apply(this.element, arguments);
+  }
+
+  function is(obj) {
+    return Object.prototype.toString.call(obj)
+  }
+
+  DOM.isArray = function isArray(obj) {
+    return is(obj) == '[object Array]' ? true : false
+  }
+
+  DOM.isObject = function isObject(obj) {
+    return is(obj) == '[object Object]' ? true : false
+  }
+
+  DOM.isFunction = function isFunction(obj) {
+    return is(obj) == '[object Function]' ? true : false
+  }
+
+  DOM.isNumber = function isNumber(obj) {
+    return is(obj) == '[object Number]' ? true : false
+  }
+
+  DOM.isString = function isString(obj) {
+    return is(obj) == '[object String]' ? true : false
+  }
+
+  DOM.isBoolean = function isBoolean(obj) {
+    return is(obj) == '[object Boolean]' ? true : false
+  }
+
+  DOM.isNull = function isNull(obj) {
+    return is(obj) == '[object Null]' || is(obj) == '[object Undefined]' ? true : false
+  }
+
+  window.DOM = DOM
+})(document)

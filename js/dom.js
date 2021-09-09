@@ -1,11 +1,9 @@
-(function (win, doc) {
-  'use strict';
-
+(function (doc) {
   function DOM(element) {
     if (!(this instanceof DOM)) {
       return new DOM(element)
     }
-
+    
     this.element = doc.querySelectorAll(element)
   }
 
@@ -86,5 +84,4 @@
   }
 
   window.DOM = DOM
-
-})(window, document);
+})(document)
